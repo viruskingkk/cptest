@@ -1,1 +1,26 @@
+version: '2'
 
+services:
+  api01:
+    image: cp/api01
+    ports:
+      - "8102:8102"
+    volumes:
+      - /var/log/filebeat:/var/log/filebeat
+      - /var/log/bigbang:/var/log/bigbang
+    networks:
+      - cp-witch
+
+  nginx:
+    image: cp/api01nginx
+    ports:
+      - "9001:9001"
+      - "19001:19001"
+    volumes:
+      - /var/log/nginx:/var/log/nginx
+    networks:
+      - cp-witch
+
+networks:
+  cp-witch:
+    driver: bridge
