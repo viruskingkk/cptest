@@ -27,4 +27,4 @@
  #   shell: "/bin/bash {{ dest_path }}/api01.sh"
 
   - name: up {{ brand }} image
-    command: "docker-compose -f {{ dest_path }}/{{ brand }}.yml" up -d
+    command: "docker-compose -f {{ dest_path }}/{{ brand }}.yml up -d"
