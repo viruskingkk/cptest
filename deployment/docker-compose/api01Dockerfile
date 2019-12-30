@@ -28,7 +28,7 @@ RUN \
   mkdir -p /etc/filebeat/modules.d && \
   mkdir -p /etc/filebeat/log && \
   rm -rf /filebeat* && \
-  rm -rf /var/lib/apt/lists/* && \
+  rm -rf /var/lib/apt/lists/*
   #pip install -r requirements.txt
 
 COPY filebeat /etc/filebeat/
