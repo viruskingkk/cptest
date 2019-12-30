@@ -1,22 +1,22 @@
---
-  - hosts: "{{ service }}"
-    become: true
-    tasks:
-    - name: Copy the api01.yml
-      copy:
-        src: "/var/lib/jenkins/workspace/cp-api01/deployment/docker-compose/api01/api01.yml"
-        dest: /root
-        mode: 0755
+---
+- hosts: "api01"
+  become: true
+  tasks:
 
-    - name: Copy the api01.sh
-      copy:
-        src: "/var/lib/jenkins/workspace/cp-api01/deployment/docker-compose/api01/../sh/api01.sh"
-        dest: /root
-        mode: 0755
+  - name: Copy the api01.yml
+    copy:
+      src: "/var/lib/jenkins/workspace/cp-api01/deployment/docker-compose/api01/api01.yml"
+      dest: /root
+      mode: 0755
 
+  - name: Copy the api01.sh
+    copy:
+      src: "/var/lib/jenkins/workspace/cp-api01/deployment/docker-compose/api01/../sh/api01.sh"
+      dest: /root
+      mode: 0755
 
-#  - name: pull api01 image
-#    shell: "/bin/bash {{ dest_path }}/api01.sh"
+  - name: pull api01 image
+    shell: "/bin/bash /root/api01.sh"
 
-    - name: up api01 image
-      command: "docker-compose -f /root/api01.yml up -d"
+  - name: up api01 image
+    command: "docker-compose -f /root/api01.yml up -d"
