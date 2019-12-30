@@ -23,8 +23,8 @@
     mode: 0755
 
 
-  - name: pull {{ brand }} image
-    shell: "/bin/bash {{ dest_path }}/api01.sh"
+ # - name: pull {{ brand }} image
+ #   shell: "/bin/bash {{ dest_path }}/api01.sh"
 
   - name: up {{ brand }} image
-    command: "docker-compose -f {{ dest_path }}/{{ brand }}.yml"
+    command: "docker-compose -f {{ dest_path }}/{{ brand }}.yml" up -d
