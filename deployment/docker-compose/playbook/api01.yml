@@ -11,7 +11,7 @@
 
   - name: Copy the api01.sh
     copy:
-      src: "/var/lib/jenkins/workspace/cp-api01/deployment/docker-compose/api01/../sh/api01.sh"
+      src: "/var/lib/jenkins/workspace/cp-api01/deployment/docker-compose/sh/api01.sh"
       dest: /root
       mode: 0755
 
