@@ -1,1 +1,62 @@
+---
 
+- hosts: "{{ service }}"
+
+ become: true
+
+ become_method: sudo
+
+
+ vars:
+
+   dest_path: /root
+
+   source_path: /home/jenkins/workspace/ansible-playbook/deployment/docker-compose
+
+   brand: api01
+
+
+ tasks:
+
+
+   - name: Copy the {{ brand }}.yml
+
+
+     copy:
+
+
+       src: "{{ source_path }}/{{ brand }}.yml"
+
+
+       dest: "{{ dest_path }}"
+
+
+       mode: 0755
+
+
+   - name: Copy the {{ brand }}.sh
+
+
+     copy:
+
+
+       src: "{{ source_path }}/../sh/api01.sh"
+
+
+       dest: "{{ dest_path }}"
+
+
+       mode: 0755
+
+
+   - name: pull {{ brand }} image
+
+
+     shell: "/bin/bash {{ dest_path }}/api01.sh"
+
+
+
+   - name: up {{ brand }} image
+
+
+     command: "docker-compose -f {{ dest_path }}/{{ brand }}.yml"
