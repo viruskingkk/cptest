@@ -1,0 +1,21 @@
+version: '2'
+
+services:
+  api01service:
+    build:
+      context: .
+      dockerfile: ./api01Dockerfile
+    image: cp/api01
+    networks:
+      - cp-witch
+
+  api01nginx:
+    build:
+      context: .
+      dockerfile: ./api01nginxDockerfile
+    image: cp/api01nginx
+    networks:
+      - cp-witch
+networks:
+  cp-witch:
+    driver: bridge1
