@@ -1,30 +1,29 @@
 ---
-- hosts: "{{ service }}"
-  become: true
-  become_method: sudo
-  vars:
-
-  dest_path: /root
-  source_path: /var/lib/jenkins/workspace/cp-api01/deployment/docker-compose/api01
-  brand: api01
+  - hosts: "{{ service }}"
+    become: true
+    become_method: sudo
+    vars:
+    dest_path: /root
+    source_path: /var/lib/jenkins/workspace/cp-api01/deployment/docker-compose/api01
+    brand: api01
 
 
   tasks:
-  - name: Copy the {{ brand }}.yml
+  - name: Copy the api01.yml
     copy:
-      src: "{{ source_path }}/{{ brand }}.yml"
-      dest: "{{ dest_path }}"
+      src: "/var/lib/jenkins/workspace/cp-api01/deployment/docker-compose/api01/api01.yml"
+      dest: /root
       mode: 0755
 
-  - name: Copy the {{ brand }}.sh
+  - name: Copy the api01.sh
     copy:
-    src: "{{ source_path }}/../sh/api01.sh"
-    dest: "{{ dest_path }}"
-    mode: 0755
+      src: "/var/lib/jenkins/workspace/cp-api01/deployment/docker-compose/api01/../sh/api01.sh"
+      dest: /root
+      mode: 0755
 
 
- # - name: pull {{ brand }} image
- #   shell: "/bin/bash {{ dest_path }}/api01.sh"
+#  - name: pull api01 image
+#    shell: "/bin/bash {{ dest_path }}/api01.sh"
 
-  - name: up {{ brand }} image
-    command: "docker-compose -f {{ dest_path }}/{{ brand }}.yml up -d"
+  - name: up api01 image
+    command: "docker-compose -f {{ dest_path }}/api01.yml"
