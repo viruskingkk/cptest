@@ -1,0 +1,38 @@
+FROM ubuntu:16.04
+
+RUN \
+  apt-get update && \
+  apt-get -y install wget && \
+  apt-get -y install bash && \
+  apt-get -y install python && \
+  apt-get install -y python-pip make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev libmysqlclient-dev && \
+  mkdir -p /opt/bigbang && \
+  chown -R 1000 /opt/bigbang
+
+COPY opt opt
+COPY requirements.txt ./
+
+ENV FILEBEAT_VERSION 6.1.1
+ENV FILEBEAT_BASE_URL https://artifacts.elastic.co/downloads/beats/filebeat/
+
+RUN \
+  apt-get update && \
+  apt-get -y install wget && \
+  apt-get -y install bash && \
+  wget -q ${FILEBEAT_BASE_URL}filebeat-${FILEBEAT_VERSION}-linux-x86_64.tar.gz && \
+  wget -q ${FILEBEAT_BASE_URL}filebeat-${FILEBEAT_VERSION}-linux-x86_64.tar.gz.sha512 && \
+  sha512sum -c filebeat-${FILEBEAT_VERSION}-linux-x86_64.tar.gz.sha512 && \
+  tar xzf filebeat-${FILEBEAT_VERSION}-linux-x86_64.tar.gz && \
+  mv filebeat-${FILEBEAT_VERSION}-linux-x86_64/filebeat /usr/local/bin && \
+  mkdir -p /etc/filebeat/conf.d && \
+  mkdir -p /etc/filebeat/modules.d && \
+  mkdir -p /etc/filebeat/log && \
+  rm -rf /filebeat* && \
+  rm -rf /var/lib/apt/lists/* && \
+  pip install -r requirements.txt
+
+COPY filebeat /etc/filebeat/
+
+EXPOSE 8102/tcp
+
+CMD ["/usr/local/bin/filebeat", "-e", "-c", "/etc/filebeat/filebeat.yml"]
