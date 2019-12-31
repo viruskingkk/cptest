@@ -2,7 +2,7 @@ version: '2'
 
 services:
   api01:
-    image: cp/api01
+    image: CP:5000/cp:api01
     ports:
       - "8102:8102"
     volumes:
