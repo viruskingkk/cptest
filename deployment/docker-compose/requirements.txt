@@ -78,4 +78,4 @@ qrcode==5.3
 SQLAlchemy==1.0.12
 multiprocessing-logging==0.2.6
 pika==0.11.2
-PyYAML==3.12
+PyYAML==5.4
